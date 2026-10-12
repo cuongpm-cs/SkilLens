@@ -1,0 +1,38 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.hf_env
+*.pem
+*.key
+
+# Clinical data, model weights, and generated results
+data/
+output/
+runs/
+media/
+*.pt
+*.pth
+*.safetensors
+*.mp4
+*.mov
+*.avi
+*.wav
+*.mp3
+*.jpg
+*.jpeg
+*.png
+!docs/SkilLens-Framework.png
+
+# Python and local tooling
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.cache/
+.modal/
+.DS_Store

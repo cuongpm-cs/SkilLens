@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1180" viewBox="0 0 1800 1180" role="img" aria-labelledby="title desc">
+  <title id="title">SkilLens proposed framework</title>
+  <desc id="desc">A step-by-step proposed framework for rubric-guided nursing skill assessment using selectable perception, visual observation, audio-aware text assessment, targeted image verification, fusion, and evaluation.</desc>
+  <defs>
+    <style>
+      .title { font: 700 36px Arial, sans-serif; fill: #10233f; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #53647a; }
+      .stage { font: 700 18px Arial, sans-serif; fill: #ffffff; letter-spacing: 0.8px; }
+      .head { font: 700 20px Arial, sans-serif; fill: #10233f; }
+      .body { font: 400 16px Arial, sans-serif; fill: #30435c; }
+      .small { font: 400 14px Arial, sans-serif; fill: #53647a; }
+      .label { font: 700 13px Arial, sans-serif; fill: #30435c; }
+      .mono { font: 600 14px monospace; fill: #30435c; }
+      .box { stroke-width: 2; }
+      .flow { stroke: #55708f; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .image { stroke: #2375d8; stroke-width: 4; fill: none; marker-end: url(#arrowBlue); }
+      .metadata { stroke: #e28628; stroke-width: 4; fill: none; marker-end: url(#arrowOrange); }
+      .rubric { stroke: #00a1a7; stroke-width: 3; stroke-dasharray: 8 6; fill: none; marker-end: url(#arrowTeal); }
+      .audio { stroke: #a85a9e; stroke-width: 3; stroke-dasharray: 9 7; fill: none; marker-end: url(#arrowPurple); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#55708f"/></marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2375d8"/></marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#e28628"/></marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#00a1a7"/></marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#a85a9e"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17314f" flood-opacity="0.11"/></filter>
+  </defs>
+
+  <rect width="1800" height="1180" fill="#f6f8fc"/>
+  <text x="900" y="48" text-anchor="middle" class="title">SkilLens: Proposed Framework</text>
+  <text x="900" y="78" text-anchor="middle" class="subtitle">Rubric-guided multimodal assessment of nursing skill videos</text>
+
+  <!-- Inputs -->
+  <rect x="50" y="105" width="1700" height="36" rx="10" fill="#244a78"/>
+  <text x="900" y="130" text-anchor="middle" class="stage">INPUTS AND CONFIGURATION</text>
+
+  <rect x="90" y="165" width="300" height="110" rx="18" class="box" fill="#eaf1ff" stroke="#2375d8" filter="url(#shadow)"/>
+  <text x="240" y="202" text-anchor="middle" class="head">Candidate Video</text>
+  <text x="240" y="235" text-anchor="middle" class="body">Original RGB video</text>
+  <text x="240" y="261" text-anchor="middle" class="small">Optional audio track</text>
+
+  <rect x="540" y="155" width="400" height="130" rx="18" class="box" fill="#e8faf9" stroke="#00a1a7" filter="url(#shadow)"/>
+  <text x="740" y="191" text-anchor="middle" class="head">Rubric Knowledge Base</text>
+  <text x="740" y="221" text-anchor="middle" class="mono">knowledge_base/rubrics/*.json</text>
+  <text x="740" y="251" text-anchor="middle" class="body">Criteria · scoring rules · modalities · assets</text>
+  <text x="740" y="274" text-anchor="middle" class="small">A new exam is added through a new rubric file</text>
+
+  <rect x="1090" y="165" width="620" height="110" rx="18" class="box" fill="#ffffff" stroke="#55708f" filter="url(#shadow)"/>
+  <text x="1400" y="202" text-anchor="middle" class="head">Runtime Configuration</text>
+  <text x="1400" y="235" text-anchor="middle" class="body">Perception backend · Observation model · Assessment model</text>
+  <text x="1400" y="261" text-anchor="middle" class="small">Rubric defaults can be overridden from the CLI</text>
+  <path d="M940 220 L1090 220" class="rubric"/>
+
+  <!-- Stage 1 -->
+  <rect x="50" y="310" width="1700" height="36" rx="10" fill="#315b8e"/>
+  <text x="900" y="335" text-anchor="middle" class="stage">STAGE 1 · PERCEPTION AND EVENT CONSTRUCTION</text>
+
+  <path d="M240 275 L240 378" class="image"/>
+  <rect x="90" y="378" width="730" height="145" rx="18" class="box" fill="#ffffff" stroke="#55708f" filter="url(#shadow)"/>
+  <text x="455" y="413" text-anchor="middle" class="head">Select One Perception Backend</text>
+  <rect x="120" y="438" width="200" height="55" rx="12" fill="#eaf1ff" stroke="#2375d8"/>
+  <text x="220" y="461" text-anchor="middle" class="body">YOLO + ByteTrack</text>
+  <text x="220" y="483" text-anchor="middle" class="small">+ MediaPipe</text>
+  <rect x="355" y="438" width="200" height="55" rx="12" fill="#f1ecff" stroke="#8b6cc1"/>
+  <text x="455" y="461" text-anchor="middle" class="body">SAM 3.1</text>
+  <text x="455" y="483" text-anchor="middle" class="small">+ MediaPipe</text>
+  <rect x="590" y="438" width="200" height="55" rx="12" fill="#e9fbf4" stroke="#23a36d"/>
+  <text x="690" y="461" text-anchor="middle" class="body">Full API</text>
+  <text x="690" y="483" text-anchor="middle" class="small">timeline windows</text>
+
+  <path d="M820 450 L920 450" class="metadata"/>
+  <rect x="920" y="378" width="380" height="145" rx="18" class="box" fill="#fff5e8" stroke="#e28628" filter="url(#shadow)"/>
+  <text x="1110" y="413" text-anchor="middle" class="head">Perception Timeline</text>
+  <text x="1110" y="447" text-anchor="middle" class="body">Events · timestamps · objects</text>
+  <text x="1110" y="477" text-anchor="middle" class="body">Tracks · confidence · hand contacts</text>
+  <text x="1110" y="506" text-anchor="middle" class="label">STRUCTURED TEXT METADATA</text>
+
+  <rect x="1410" y="378" width="300" height="145" rx="18" class="box" fill="#eef5ff" stroke="#2375d8" stroke-dasharray="8 6"/>
+  <text x="1560" y="413" text-anchor="middle" class="head">Annotated Frames</text>
+  <text x="1560" y="448" text-anchor="middle" class="body">Boxes + hand overlay</text>
+  <text x="1560" y="478" text-anchor="middle" class="small">Optional YOLO reference</text>
+  <text x="1560" y="506" text-anchor="middle" class="label">OPTIONAL IMAGE DATA</text>
+  <path d="M320 493 C650 550 1260 550 1410 493" class="image" stroke-dasharray="8 6"/>
+
+  <!-- Stage 2 -->
+  <rect x="50" y="555" width="1700" height="36" rx="10" fill="#2f6fed"/>
+  <text x="900" y="580" text-anchor="middle" class="stage">STAGE 2 · VISUAL OBSERVATION</text>
+
+  <rect x="90" y="615" width="880" height="145" rx="18" class="box" fill="#ffffff" stroke="#d8e0eb" filter="url(#shadow)"/>
+  <text x="530" y="647" text-anchor="middle" class="head">Multimodal Observation Input</text>
+  <rect x="120" y="670" width="240" height="60" rx="12" fill="#eaf1ff" stroke="#2375d8"/>
+  <text x="240" y="696" text-anchor="middle" class="body">Raw video frames</text>
+  <text x="240" y="719" text-anchor="middle" class="label">IMAGE INPUT</text>
+  <rect x="410" y="670" width="240" height="60" rx="12" fill="#fff5e8" stroke="#e28628"/>
+  <text x="530" y="696" text-anchor="middle" class="body">Perception timeline</text>
+  <text x="530" y="719" text-anchor="middle" class="label">TEXT METADATA</text>
+  <rect x="700" y="670" width="240" height="60" rx="12" fill="#e8faf9" stroke="#00a1a7"/>
+  <text x="820" y="696" text-anchor="middle" class="body">Compact rubric</text>
+  <text x="820" y="719" text-anchor="middle" class="label">RUBRIC CONTEXT</text>
+
+  <path d="M970 687 L1050 687" class="flow"/>
+  <rect x="1050" y="615" width="330" height="145" rx="18" class="box" fill="#eef5ff" stroke="#2375d8" filter="url(#shadow)"/>
+  <text x="1215" y="653" text-anchor="middle" class="head">Observation VLM</text>
+  <text x="1215" y="687" text-anchor="middle" class="body">Find direct visible evidence</text>
+  <text x="1215" y="716" text-anchor="middle" class="body">Images + text in one request</text>
+  <text x="1215" y="744" text-anchor="middle" class="small">No official scoring</text>
+
+  <path d="M1380 687 L1440 687" class="flow"/>
+  <rect x="1440" y="625" width="270" height="125" rx="16" class="box" fill="#e9fbf4" stroke="#23a36d"/>
+  <text x="1575" y="660" text-anchor="middle" class="head">Evidence Timeline</text>
+  <text x="1575" y="693" text-anchor="middle" class="body">Status + timestamps</text>
+  <text x="1575" y="722" text-anchor="middle" class="mono">observations.json</text>
+
+  <!-- Stage 3 -->
+  <rect x="50" y="790" width="1700" height="36" rx="10" fill="#ef9b31"/>
+  <text x="900" y="815" text-anchor="middle" class="stage">STAGE 3 · RUBRIC ASSESSMENT (OPTIONAL VISUAL VERIFICATION)</text>
+
+  <rect x="75" y="855" width="270" height="180" rx="16" class="box" fill="#ffffff" stroke="#d8e0eb"/>
+  <text x="210" y="891" text-anchor="middle" class="head">Assessment Inputs</text>
+  <text x="105" y="928" class="body">• Full scoring rubric</text>
+  <text x="105" y="958" class="body">• Observation timeline</text>
+  <text x="105" y="988" class="body">• Audio evidence from ASR</text>
+  <text x="210" y="1020" text-anchor="middle" class="label">TEXT + OPTIONAL AUDIO</text>
+
+  <path d="M345 945 L405 945" class="flow"/>
+  <rect x="405" y="855" width="300" height="180" rx="18" class="box" fill="#fff5e8" stroke="#e28628" filter="url(#shadow)"/>
+  <text x="555" y="891" text-anchor="middle" class="head">3A · Assessment LLM</text>
+  <text x="555" y="928" text-anchor="middle" class="body">Text-first rubric scoring</text>
+  <text x="555" y="958" text-anchor="middle" class="body">Legal score + confidence</text>
+  <text x="555" y="988" text-anchor="middle" class="body">Text-only GPT-OSS-20B</text>
+  <text x="555" y="1020" text-anchor="middle" class="small">Audio is used only when permitted</text>
+
+  <path d="M705 945 L765 945" class="flow"/>
+  <rect x="765" y="855" width="300" height="180" rx="18" class="box" fill="#eaf1ff" stroke="#2375d8" filter="url(#shadow)"/>
+  <text x="915" y="891" text-anchor="middle" class="head">Optional Frame Retrieval</text>
+  <text x="915" y="928" text-anchor="middle" class="body">Use evidence timestamps</text>
+  <text x="915" y="958" text-anchor="middle" class="body">or temporal search prior</text>
+  <text x="915" y="988" text-anchor="middle" class="body">Read raw frames from video</text>
+  <text x="915" y="1020" text-anchor="middle" class="label">SELECTED IMAGE EVIDENCE</text>
+
+  <path d="M1065 945 L1125 945" class="image"/>
+  <rect x="1125" y="855" width="300" height="180" rx="18" class="box" fill="#eef5ff" stroke="#2375d8" filter="url(#shadow)"/>
+  <text x="1275" y="891" text-anchor="middle" class="head">3B · Optional Visual Check</text>
+  <text x="1275" y="928" text-anchor="middle" class="body">Raw frames + criterion rules</text>
+  <text x="1275" y="958" text-anchor="middle" class="body">Independent image judgment</text>
+  <text x="1275" y="988" text-anchor="middle" class="body">Optional relevant audio</text>
+  <text x="1275" y="1020" text-anchor="middle" class="label">NO OBSERVATION VLM PROSE</text>
+
+  <path d="M1425 945 L1475 945" class="flow"/>
+  <rect x="1475" y="855" width="235" height="180" rx="18" class="box" fill="#e9fbf4" stroke="#23a36d" filter="url(#shadow)"/>
+  <text x="1593" y="891" text-anchor="middle" class="head">Result Fusion</text>
+  <text x="1593" y="928" text-anchor="middle" class="body">Text judgment</text>
+  <text x="1593" y="958" text-anchor="middle" class="body">+ optional visual check</text>
+  <text x="1593" y="988" text-anchor="middle" class="body">+ confidence policy</text>
+  <text x="1593" y="1020" text-anchor="middle" class="mono">assessment.json</text>
+
+  <!-- Evaluation -->
+  <rect x="50" y="1070" width="1700" height="36" rx="10" fill="#23a36d"/>
+  <text x="900" y="1095" text-anchor="middle" class="stage">STAGE 4 · OPTIONAL EVALUATION</text>
+
+  <rect x="235" y="1125" width="310" height="42" rx="12" fill="#ffffff" stroke="#55708f" stroke-width="2"/>
+  <text x="390" y="1152" text-anchor="middle" class="body">Gold labels (exam-specific)</text>
+  <path d="M545 1146 L665 1146" class="flow"/>
+  <rect x="665" y="1125" width="900" height="42" rx="12" fill="#e9fbf4" stroke="#23a36d" stroke-width="2"/>
+  <text x="1115" y="1152" text-anchor="middle" class="body">Final predictions → Accuracy · soft accuracy · F1 · MAE · QWK · confusion matrix</text>
+
+  <!-- Compact legend -->
+  <rect x="80" y="20" width="430" height="62" rx="12" fill="#ffffff" stroke="#d8e0eb"/>
+  <line x1="100" y1="40" x2="145" y2="40" class="image"/><text x="158" y="46" class="small">Images/video</text>
+  <line x1="290" y1="40" x2="335" y2="40" class="metadata"/><text x="348" y="46" class="small">Perception metadata</text>
+  <line x1="100" y1="65" x2="145" y2="65" class="rubric"/><text x="158" y="71" class="small">Rubric</text>
+  <line x1="290" y1="65" x2="335" y2="65" class="audio"/><text x="348" y="71" class="small">Optional audio</text>
+</svg>

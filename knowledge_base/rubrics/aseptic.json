@@ -1,0 +1,201 @@
+{
+  "framework": {
+    "exam_id": "aseptic",
+    "aliases": ["aseptic_vial", "medication_preparation"],
+    "default_backend": "full_api",
+    "audio": "auto",
+    "assets": {}
+  },
+  "rubric_id": "aseptic_vial_exam_30_v1",
+  "title": "Aseptic medication preparation from a powder vial — 30 examination criteria",
+  "scope_note": "This rubric follows the 30 scored criteria in the supplied examination spreadsheet. The related SOP document contains 32 actions, but the two additional SOP actions are not separate scored criteria in this rubric.",
+  "maximum_score": 60,
+  "score_scale": {
+    "0": "Direct evidence shows that the criterion was performed incorrectly or not completed",
+    "1": "Direct evidence shows that the criterion was attempted but incomplete or only partially correct",
+    "2": "Direct evidence shows that the criterion was performed completely and correctly",
+    "null": "The visual evidence is insufficient for a defensible score"
+  },
+  "steps": [
+    {
+      "id": 1,
+      "key": "wash_hands",
+      "description": "Remove the wristwatch and wash the hands before preparing the medication.",
+      "required_objects": []
+    },
+    {
+      "id": 2,
+      "key": "retrieve_medication_from_record",
+      "description": "Read the medication administration record and retrieve the required medication (first check).",
+      "required_objects": []
+    },
+    {
+      "id": 3,
+      "key": "inspect_medication",
+      "description": "Inspect the medication for deterioration, expiration, or other abnormalities.",
+      "required_objects": ["vial"]
+    },
+    {
+      "id": 4,
+      "key": "verify_medication_second_check",
+      "description": "Read the medication treatment record and verify the medication again (second check).",
+      "required_objects": []
+    },
+    {
+      "id": 5,
+      "key": "open_vial",
+      "description": "Remove the protective cap from the powder medication vial.",
+      "required_objects": ["vial"]
+    },
+    {
+      "id": 6,
+      "key": "disinfect_vial",
+      "description": "Disinfect the vial opening or rubber stopper with an alcohol swab.",
+      "required_objects": ["vial"]
+    },
+    {
+      "id": 7,
+      "key": "disinfect_diluent",
+      "description": "Disinfect the opening of the diluent container.",
+      "required_objects": ["saline"]
+    },
+    {
+      "id": 8,
+      "key": "open_diluent",
+      "description": "Open the diluent container.",
+      "required_objects": ["saline"]
+    },
+    {
+      "id": 9,
+      "key": "open_syringe_package",
+      "description": "Tear open the sterile syringe package.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 10,
+      "key": "remove_syringe_aseptically",
+      "description": "Stabilize the needle and plunger while removing the syringe from its package without contaminating sterile parts.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 11,
+      "key": "remove_vial_swab",
+      "description": "Remove the alcohol swab covering the vial opening before needle insertion.",
+      "required_objects": ["vial"]
+    },
+    {
+      "id": 12,
+      "key": "hold_diluent_container",
+      "description": "Hold the diluent container between the left index and middle fingers.",
+      "required_objects": ["saline"]
+    },
+    {
+      "id": 13,
+      "key": "insert_needle_into_diluent",
+      "description": "With the right hand, insert the needle bevel-down into the diluent container while the remaining left fingers stabilize the syringe.",
+      "required_objects": ["needle", "saline"]
+    },
+    {
+      "id": 14,
+      "key": "withdraw_required_diluent",
+      "description": "Hold the ring at the end of the plunger without touching the plunger shaft and withdraw diluent to the required graduation mark.",
+      "required_objects": ["needle", "saline"]
+    },
+    {
+      "id": 15,
+      "key": "protect_syringe_junction",
+      "description": "Place an alcohol swab beneath the syringe junction before adjusting the plunger.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 16,
+      "key": "retract_plunger_after_diluent",
+      "description": "Pull the syringe plunger backward before expelling air.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 17,
+      "key": "expel_air_after_diluent",
+      "description": "Tap the syringe with a finger and expel the air after withdrawing the diluent.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 18,
+      "key": "inject_diluent_into_vial",
+      "description": "Using a pencil grip, insert the needle into the center of the vial and inject the diluent.",
+      "required_objects": ["needle", "vial"]
+    },
+    {
+      "id": 19,
+      "key": "recap_after_reconstitution",
+      "description": "Withdraw the needle and recap it using a one-handed scoop technique or place it in a needle holder.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 20,
+      "key": "dissolve_powder",
+      "description": "Rotate the vial with both hands until the diluent and powder are mixed.",
+      "required_objects": ["vial"]
+    },
+    {
+      "id": 21,
+      "key": "draw_air_for_vial",
+      "description": "Uncap the syringe and draw air into it before withdrawing the reconstituted medication.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 22,
+      "key": "inject_air_into_vial",
+      "description": "Using a pencil grip, insert the needle into the center of the vial and inject the air.",
+      "required_objects": ["needle", "vial"]
+    },
+    {
+      "id": 23,
+      "key": "invert_vial",
+      "description": "Lift and invert the vial so that the syringe points upward and the vial opening points downward.",
+      "required_objects": ["needle", "vial"]
+    },
+    {
+      "id": 24,
+      "key": "withdraw_required_medication",
+      "description": "Hold the ring at the end of the plunger without touching the plunger shaft and withdraw medication to the required dose graduation.",
+      "required_objects": ["needle", "vial"]
+    },
+    {
+      "id": 25,
+      "key": "support_needle_hub_with_swab",
+      "description": "Place a clean alcohol swab beneath the needle hub before removing air from the filled syringe.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 26,
+      "key": "hold_syringe_upright",
+      "description": "Hold the syringe vertically with the needle pointing upward and pull the plunger backward.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 27,
+      "key": "expel_air_after_medication",
+      "description": "Tap the syringe with a finger and expel the air after withdrawing the medication.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 28,
+      "key": "final_one_handed_recap",
+      "description": "Recap the needle using a one-handed scoop technique or place it in a needle holder.",
+      "required_objects": ["needle"]
+    },
+    {
+      "id": 29,
+      "key": "final_medication_record_check",
+      "description": "Read the medication treatment record again and discard the empty medication vial (third check).",
+      "required_objects": ["vial"]
+    },
+    {
+      "id": 30,
+      "key": "store_prepared_syringe",
+      "description": "Place the prepared syringe into its package by handling the plunger end, or place it on the needle rack.",
+      "required_objects": ["needle"]
+    }
+  ]
+}

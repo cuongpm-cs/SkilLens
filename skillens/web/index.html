@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkilLens · Clinical Review</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="loading" class="loading-screen">
+    <div class="loading-mark">SL</div>
+    <p>Loading clinical assessment…</p>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">SL</div>
+      <div>
+        <div class="brand-name">SkilLens</div>
+        <div class="brand-subtitle">Clinical assessment review</div>
+      </div>
+    </div>
+    <div class="case-meta">
+      <span id="examTitle" class="case-title">Catheterization OSCE</span>
+      <span class="meta-divider"></span>
+      <span id="candidateName">—</span>
+      <span id="backendBadge" class="backend-badge">—</span>
+    </div>
+    <div class="top-actions">
+      <a class="ghost-button" href="/expert-review">Review labels</a>
+      <button id="copyLink" class="ghost-button" type="button">Copy review link</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="review-stage">
+      <div class="media-column">
+        <div class="video-shell">
+          <video id="video" preload="metadata" playsinline></video>
+        </div>
+        <div id="videoOverlay" class="video-caption" data-status="unclear">
+          <div class="caption-main">
+            <div class="caption-context">
+              <i class="caption-status-dot"></i>
+              <span id="overlayStep" class="overlay-step">Select a criterion</span>
+              <span id="captionVerdict" class="caption-verdict">Waiting</span>
+            </div>
+            <div id="overlayEvent" class="overlay-event">Timestamped evidence will appear here</div>
+          </div>
+          <div class="caption-meta">
+            <span id="captionEventId" class="caption-event-id">E—</span>
+            <span id="captionEventTime" class="caption-event-time">—:———:——</span>
+            <button id="replayEvent" class="replay-event" type="button" title="Replay this event" aria-label="Replay current event">↺</button>
+          </div>
+        </div>
+
+        <div class="transport">
+          <div class="transport-left">
+            <button id="backFive" class="icon-button" type="button" aria-label="Back 5 seconds">−5</button>
+            <button id="playPause" class="play-button" type="button" aria-label="Play">▶</button>
+            <button id="forwardFive" class="icon-button" type="button" aria-label="Forward 5 seconds">+5</button>
+            <span id="timecode" class="timecode">00:00 / 00:00</span>
+          </div>
+          <div class="transport-right">
+            <label for="playbackRate">Speed</label>
+            <select id="playbackRate">
+              <option value="0.5">0.5×</option>
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+              <option value="2">2×</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <section class="timeline-panel" aria-label="Video event timeline">
+        <div class="timeline-heading">
+          <div>
+            <span class="eyebrow">Event timeline</span>
+            <strong id="activeEventLabel">Move through the assessment</strong>
+          </div>
+          <div class="timeline-heading-tools">
+            <div class="timeline-legend">
+              <span><i class="legend-dot complete"></i>Complete</span>
+              <span><i class="legend-dot partial"></i>Partial</span>
+              <span><i class="legend-dot unclear"></i>Unclear</span>
+            </div>
+            <div class="timeline-zoom" aria-label="Timeline zoom controls">
+              <span id="timelineCursor" class="timeline-cursor">00:00</span>
+              <button id="zoomOut" type="button" aria-label="Zoom timeline out">−</button>
+              <button id="zoomFit" type="button">Fit</button>
+              <button id="zoomIn" type="button" aria-label="Zoom timeline in">+</button>
+            </div>
+          </div>
+        </div>
+        <div id="timelineViewport" class="timeline-viewport">
+          <div id="timeline" class="timeline">
+            <div id="ruler" class="ruler"></div>
+            <div class="track-row overview-row">
+              <div class="track-label">All events</div>
+              <div id="overviewTrack" class="track"></div>
+            </div>
+            <div class="track-row selected-row">
+              <div class="track-label">Evidence</div>
+              <div id="evidenceTrack" class="track evidence-track"></div>
+            </div>
+            <div class="track-row audio-row">
+              <div class="track-label">Transcript</div>
+              <div id="audioTrack" class="track audio-track"></div>
+            </div>
+            <div id="playhead" class="playhead"><span></span><b id="playheadTime">00:00</b></div>
+          </div>
+        </div>
+        <div class="timeline-help">Click a segment to seek · Use zoom for precise review · Space play/pause · ←/→ move 5 seconds</div>
+      </section>
+
+      <section id="criterionDetail" class="criterion-detail">
+        <div class="empty-detail">
+          <span>01</span>
+          <p>Select a criterion to inspect the LLM judgement and timestamped evidence.</p>
+        </div>
+      </section>
+    </section>
+
+    <aside class="criteria-panel">
+      <section class="score-card">
+        <div>
+          <span class="eyebrow">Confirmed score</span>
+          <div class="score-line"><strong id="confirmedScore">—</strong><span id="maximumScore">/ 40</span></div>
+        </div>
+        <div id="scoreRing" class="score-ring"><span id="scorePercent">—</span></div>
+        <div class="score-card-footer">
+          <span id="scoreRange">Range —</span>
+          <span id="reviewCount">— review</span>
+        </div>
+      </section>
+
+      <div class="criteria-header">
+        <div>
+          <span class="eyebrow">LLM judgement</span>
+          <h1>Assessment criteria</h1>
+        </div>
+        <span id="criteriaCount" class="criteria-count">20</span>
+      </div>
+
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="criterionSearch" type="search" placeholder="Search criteria" autocomplete="off">
+      </div>
+      <div id="filters" class="filters">
+        <button class="filter-chip active" data-filter="all" type="button">All</button>
+        <button class="filter-chip" data-filter="complete" type="button">Complete</button>
+        <button class="filter-chip" data-filter="partial" type="button">Partial</button>
+        <button class="filter-chip" data-filter="review" type="button">Review</button>
+      </div>
+      <div id="criteriaList" class="criteria-list"></div>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

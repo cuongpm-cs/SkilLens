@@ -1,0 +1,43 @@
+{
+  "framework": {
+    "exam_id": "new_exam",
+    "aliases": ["new-exam"],
+    "default_backend": "full_api",
+    "audio": "auto",
+    "assets": {},
+    "gold": {
+      "format": "long_csv",
+      "path": "gold_labels.csv"
+    }
+  },
+  "rubric_id": "new_exam_v1",
+  "title": "New Clinical Skills Exam",
+  "maximum_score": 4,
+  "score_scale": {
+    "0": "Incorrect or not performed",
+    "1": "Partially correct",
+    "2": "Complete and correct"
+  },
+  "steps": [
+    {
+      "id": 1,
+      "key": "prepare_patient",
+      "description": "Prepare the patient safely before the procedure.",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": [],
+      "observable_evidence": ["The candidate completes the required preparation actions."]
+    },
+    {
+      "id": 2,
+      "key": "explain_procedure",
+      "description": "Explain the procedure to the patient.",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["audio", "video"],
+      "required_objects": [],
+      "observable_evidence": ["The candidate gives a clear verbal explanation."]
+    }
+  ]
+}

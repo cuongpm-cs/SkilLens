@@ -1,0 +1,565 @@
+{
+  "framework": {
+    "exam_id": "catheterization",
+    "aliases": ["urinary_catheterization", "female_catheterization"],
+    "default_backend": "full_api",
+    "audio": "auto",
+    "assets": {}
+  },
+  "rubric_id": "female_indwelling_urinary_catheterization_osce_20_v1",
+  "title": "Female Indwelling Urinary Catheterization OSCE — 20 scored criteria",
+  "source_title_zh": "導尿OSCE",
+  "version": "1.0.0",
+  "language": "English with source-faithful Traditional Chinese criterion text",
+  "scope_note": "The source PDF contains 20 scored criteria worth two points each and one additional teacher-note section. The teacher-note section is represented as critical rules, not as a twenty-first scored criterion. The XLSX reports confirm the 40-point maximum and which criteria permit partial credit.",
+  "interpretation_note": "The PDF names the legal score levels but does not provide detailed operational definitions for partial credit. The criterion-level score-1 rules below conservatively decompose only the requirements explicitly named in each source criterion. They should be clinically reviewed before deployment.",
+  "xlsx_reference_mapping": {
+    "sheet_name": "導尿OSCE",
+    "candidate_name_column": "A",
+    "evaluator_name_column": "C",
+    "evaluation_status_or_time_column": "E",
+    "total_score_column": "F",
+    "criterion_columns": {
+      "H": 1,
+      "I": 2,
+      "J": 3,
+      "K": 4,
+      "L": 5,
+      "M": 6,
+      "N": 7,
+      "O": 8,
+      "P": 9,
+      "Q": 10,
+      "R": 11,
+      "S": 12,
+      "T": 13,
+      "U": 14,
+      "V": 15,
+      "W": 16,
+      "X": 17,
+      "Y": 18,
+      "Z": 19,
+      "AA": 20
+    },
+    "teacher_note_column": "AB",
+    "teacher_note_possible_points": 0,
+    "completed_record_rule": "Column E contains a date/time rather than 'In Progress'."
+  },
+  "maximum_score": 40,
+  "maximum_raw_score": 40,
+  "score_scale": {
+    "0": "Direct evidence shows that the criterion was omitted, performed incorrectly, or failed the criterion-specific requirements.",
+    "1": "Direct evidence shows a partially correct performance. This score is legal only for criteria 5, 6, 8, 13, 14, 17, 19, and 20.",
+    "2": "Direct evidence shows that the criterion was performed completely and correctly.",
+    "null": "The available visual or audio evidence is insufficient for a defensible score. Lack of visibility is not evidence of incorrect performance."
+  },
+  "verdict_mapping": {
+    "incorrect": 0,
+    "partial": 1,
+    "complete": 2,
+    "unverifiable": null
+  },
+  "assessment_policy": {
+    "evidence_only": true,
+    "missing_evidence_policy": "Return unverifiable with score null. Do not convert missing, occluded, inaudible, or off-camera evidence into score 0.",
+    "negative_evidence_policy": "Score an omitted action as 0 only when the relevant time interval is covered sufficiently to establish that the action did not occur.",
+    "partial_credit_policy": "Use score 1 only when direct evidence establishes that some named requirements were satisfied and other named requirements were omitted or incorrect. Uncertainty alone never justifies score 1.",
+    "binary_item_policy": "Criteria whose allowed_scores are [0, 2] must never receive score 1.",
+    "evidence_citation_required": true,
+    "timestamp_required": true,
+    "audio_must_be_preserved": true,
+    "human_review_when_unverifiable": true,
+    "critical_rule_confirmation": "A critical deduction requires direct continuous evidence and human confirmation; otherwise flag it for review without applying the deduction."
+  },
+  "score_calculation": {
+    "raw_score": "Sum the 20 criterion scores after excluding unverifiable criteria. A complete official raw score requires all 20 criteria to be resolved.",
+    "score_range_when_unverifiable": "Lower bound treats unresolved criteria as 0; upper bound treats each unresolved criterion as its maximum legal score of 2.",
+    "final_score": "If the 40-point deduction is confirmed, final_score = max(0, raw_score - 40). Otherwise final_score = raw_score.",
+    "do_not_apply_unspecified_penalties": true
+  },
+  "phases": [
+    {
+      "id": "patient_preparation",
+      "name": "Patient preparation",
+      "step_ids": [1, 2]
+    },
+    {
+      "id": "sterile_field_and_equipment_preparation",
+      "name": "Sterile field and equipment preparation",
+      "step_ids": [3, 4, 5, 6, 7, 8, 9, 10, 11]
+    },
+    {
+      "id": "perineal_preparation_and_insertion",
+      "name": "Perineal preparation and catheter insertion",
+      "step_ids": [12, 13, 14, 15, 16, 17]
+    },
+    {
+      "id": "post_insertion_care",
+      "name": "Post-insertion connection and fixation",
+      "step_ids": [18, 19]
+    },
+    {
+      "id": "global_workflow",
+      "name": "Global procedural logic",
+      "step_ids": [20]
+    }
+  ],
+  "sequence_constraints": {
+    "source_order": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "hard_dependencies": [
+      "Establish the sterile field before placing or manipulating sterile equipment.",
+      "Test the urinary catheter before inserting it.",
+      "Expose and continuously stabilize the urethral meatus before and during cleansing and insertion.",
+      "Perform povidone-iodine cleansing before distilled-water cleansing.",
+      "Complete cleansing before catheter insertion.",
+      "Inflate the retention balloon only after catheter insertion.",
+      "Connect and secure the drainage system after catheter insertion."
+    ],
+    "concurrent_requirement": "Criterion 15 is an instruction delivered during catheter insertion and must be evaluated with synchronized audio and video.",
+    "global_scoring_note": "Do not fail criterion 20 for a harmless reordering by itself. Penalize clear disruptions of sterile, safety, or procedural dependencies."
+  },
+  "critical_rules": [
+    {
+      "id": "document_any_contamination",
+      "source_text_zh": "任何汙染",
+      "description": "Document every directly observed contamination event and link it to the affected criterion and timestamp.",
+      "automatic_point_deduction": null,
+      "reason": "The PDF asks the teacher to document contamination but does not assign a fixed numerical deduction to this line.",
+      "assessment_action": "Add a safety concern and score the affected criterion using its own scoring rules. Do not invent an additional point deduction."
+    },
+    {
+      "id": "maintain_labial_separation_throughout",
+      "source_text_zh": "沒有全程以一手撥開陰唇，露出尿道口，固定勿動（會扣40分）",
+      "description": "Once one hand separates the labia and exposes the urethral meatus, that hand must remain fixed throughout the relevant cleansing and insertion interval.",
+      "relevant_step_ids": [12, 13, 14, 16],
+      "deduction_points": 40,
+      "maximum_possible_final_score_after_deduction": 0,
+      "requires_continuous_temporal_evidence": true,
+      "human_confirmation_required": true,
+      "do_not_trigger_when": "The hand is occluded, the interval is missing, or continuity cannot be verified. In those cases return a critical-review flag rather than applying the deduction."
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "key": "cover_patient_and_maintain_warmth",
+      "source_text_zh": "適當覆蓋注意病人保暖",
+      "description": "Appropriately cover the patient and maintain patient warmth.",
+      "phase": "patient_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["patient_cover"],
+      "observable_evidence": [
+        "The candidate places or adjusts a cover over the patient.",
+        "The patient's body is appropriately covered for warmth while preserving access needed for the procedure."
+      ],
+      "scoring_rules": {
+        "2": "Direct visual evidence shows appropriate covering with attention to warmth.",
+        "0": "Direct visual evidence shows that appropriate covering or warmth protection was not performed."
+      }
+    },
+    {
+      "id": 2,
+      "key": "position_patient_supine",
+      "source_text_zh": "維持正確和舒適的仰臥姿勢",
+      "description": "Maintain a correct and comfortable supine position.",
+      "phase": "patient_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["patient_or_manikin", "bed"],
+      "observable_evidence": [
+        "The patient or manikin is positioned supine.",
+        "The position is maintained in a manner consistent with comfort and procedural access."
+      ],
+      "scoring_rules": {
+        "2": "The supine position is directly visible and is maintained correctly and comfortably.",
+        "0": "The visible position is incorrect or is not maintained appropriately."
+      }
+    },
+    {
+      "id": 3,
+      "key": "open_drainage_bag_outer_package",
+      "source_text_zh": "打開蓄尿袋外包裝",
+      "description": "Open the outer package of the urinary drainage bag correctly.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["urinary_drainage_bag", "outer_package"],
+      "observable_evidence": [
+        "The drainage-bag package is identifiable before opening.",
+        "The candidate opens the outer package without a directly observed incorrect action."
+      ],
+      "scoring_rules": {
+        "2": "The outer package is visibly opened correctly.",
+        "0": "The package is visibly opened incorrectly or the action is demonstrably omitted."
+      }
+    },
+    {
+      "id": 4,
+      "key": "open_catheterization_kit_aseptically",
+      "source_text_zh": "以無菌技術打開導尿包",
+      "description": "Open the catheterization kit using sterile technique.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["catheterization_kit", "sterile_field"],
+      "observable_evidence": [
+        "The candidate opens the catheterization kit while preserving the sterile field.",
+        "No direct contact between nonsterile hands or surfaces and the sterile contents is observed."
+      ],
+      "scoring_rules": {
+        "2": "The kit is opened with directly supported sterile technique.",
+        "0": "The opening technique is visibly incorrect, contaminates the sterile contents, or is demonstrably omitted."
+      }
+    },
+    {
+      "id": 5,
+      "key": "pour_povidone_iodine_aseptically",
+      "source_text_zh": "無菌倒水溶性優碘(手握標籤，另一隻手將蓋子朝下)",
+      "description": "Pour water-soluble povidone-iodine aseptically while holding the bottle at the label and keeping the cap facing downward in the other hand.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["povidone_iodine_bottle", "bottle_cap", "sterile_container"],
+      "observable_evidence": [
+        "The bottle is held at the label area.",
+        "The cap is retained in the other hand with its inner surface facing downward.",
+        "Povidone-iodine is poured into the sterile area without directly observed contamination."
+      ],
+      "scoring_rules": {
+        "2": "All named handling and aseptic-pouring requirements are directly supported.",
+        "1": "The pour is attempted and direct evidence shows that some, but not all, named handling requirements are correct.",
+        "0": "The action is omitted, clearly incorrect overall, or directly contaminates the sterile setup."
+      }
+    },
+    {
+      "id": 6,
+      "key": "disinfect_and_pour_distilled_water",
+      "source_text_zh": "消毒蒸餾水瓶口並以無菌技術倒入",
+      "description": "Disinfect the opening of the distilled-water bottle and pour the water using sterile technique.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["distilled_water_bottle", "disinfecting_swab", "sterile_container"],
+      "observable_evidence": [
+        "The bottle opening is visibly disinfected.",
+        "Distilled water is poured into the sterile area using sterile technique."
+      ],
+      "scoring_rules": {
+        "2": "Both opening disinfection and sterile pouring are directly supported.",
+        "1": "Direct evidence supports only one of the two named components or shows a partially correct execution.",
+        "0": "Both components are omitted or clearly incorrect, or direct contamination invalidates the action."
+      }
+    },
+    {
+      "id": 7,
+      "key": "place_catheter_and_syringe_in_sterile_field",
+      "source_text_zh": "以無菌方式將導尿管和10cc空針丟入無菌區內",
+      "description": "Place both the urinary catheter and the 10 mL syringe into the sterile field using sterile technique.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["urinary_catheter", "10_ml_syringe", "sterile_field"],
+      "observable_evidence": [
+        "Both the catheter and 10 mL syringe are introduced into the sterile field.",
+        "Their placement does not visibly contaminate the sterile field or equipment."
+      ],
+      "scoring_rules": {
+        "2": "Both objects are visibly placed into the sterile field using sterile technique.",
+        "0": "Either required object is omitted, placed incorrectly, or visibly contaminated during placement."
+      }
+    },
+    {
+      "id": 8,
+      "key": "don_sterile_gloves",
+      "source_text_zh": "戴無菌手套",
+      "description": "Don sterile gloves using correct sterile technique.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["sterile_gloves"],
+      "observable_evidence": [
+        "The complete glove-donning sequence is visible.",
+        "The candidate avoids directly observed contact that contaminates sterile glove surfaces."
+      ],
+      "scoring_rules": {
+        "2": "Sterile gloves are donned correctly with no directly observed break in technique.",
+        "1": "Glove donning is directly observed to be only partially correct, without enough support for a fully correct score.",
+        "0": "The action is omitted, clearly incorrect, or directly contaminates the gloves."
+      }
+    },
+    {
+      "id": 9,
+      "key": "draw_water_and_test_catheter",
+      "source_text_zh": "空針抽蒸餾水並測試導尿管",
+      "description": "Draw distilled water into the syringe and test the urinary catheter.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "multi_event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["10_ml_syringe", "distilled_water", "urinary_catheter"],
+      "observable_evidence": [
+        "Distilled water is drawn into the syringe.",
+        "The syringe is used to test the catheter before patient insertion."
+      ],
+      "scoring_rules": {
+        "2": "Both drawing distilled water and testing the catheter are directly supported.",
+        "0": "Either required component is demonstrably omitted or performed incorrectly."
+      }
+    },
+    {
+      "id": 10,
+      "key": "place_fenestrated_drape_aseptically",
+      "source_text_zh": "以無菌技術鋪上洞巾，露出會陰部",
+      "description": "Place the fenestrated drape using sterile technique and expose the perineal area through the opening.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["fenestrated_sterile_drape", "perineal_area"],
+      "observable_evidence": [
+        "The fenestrated drape is placed without a directly observed break in sterile technique.",
+        "The perineal area is positioned within the drape opening."
+      ],
+      "scoring_rules": {
+        "2": "Both sterile placement and correct exposure are directly supported.",
+        "0": "The drape is omitted, visibly contaminated, or positioned incorrectly."
+      }
+    },
+    {
+      "id": 11,
+      "key": "lubricate_catheter_aseptically",
+      "source_text_zh": "以無菌技術用紗布在導尿管塗Jelly約10公分，置於無菌區內",
+      "description": "Using gauze and sterile technique, apply jelly to approximately 10 cm of the urinary catheter and place it in the sterile field.",
+      "phase": "sterile_field_and_equipment_preparation",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["urinary_catheter", "gauze", "jelly", "sterile_field"],
+      "observable_evidence": [
+        "Jelly is applied to the catheter using gauze.",
+        "The lubricated length is approximately 10 cm when visually verifiable.",
+        "The catheter is returned to the sterile field without directly observed contamination."
+      ],
+      "scoring_rules": {
+        "2": "The named lubrication and sterile-placement requirements are directly supported.",
+        "0": "A required component is demonstrably omitted or incorrect, or the catheter is visibly contaminated."
+      }
+    },
+    {
+      "id": 12,
+      "key": "separate_labia_and_stabilize",
+      "source_text_zh": "以一手撥開陰唇，露出尿道口，固定勿動",
+      "description": "Use one hand to separate the labia, expose the urethral meatus, and keep that hand fixed.",
+      "phase": "perineal_preparation_and_insertion",
+      "assessment_scope": "continuous_interval",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["perineal_model_or_patient", "urethral_meatus"],
+      "observable_evidence": [
+        "One hand separates the labia sufficiently to expose the urethral meatus.",
+        "The same hand remains fixed during the relevant cleansing and insertion interval."
+      ],
+      "scoring_rules": {
+        "2": "Separation, exposure, and continuous fixed-hand stabilization are directly supported.",
+        "0": "A named requirement is directly observed to fail, including release or repositioning that violates the fixed-hand requirement."
+      },
+      "critical_rule_reference": "maintain_labial_separation_throughout"
+    },
+    {
+      "id": 13,
+      "key": "cleanse_with_povidone_iodine_swabs",
+      "source_text_zh": "另一手以水溶性優碘棉棒，由上往下消毒。\n(1)第一枝擦遠側小陰唇\n(2)第二枝擦近側小陰唇\n(3)第三枝擦中間尿道",
+      "description": "With the other hand, cleanse from top to bottom using povidone-iodine swabs in this order: first the far labium minus, second the near labium minus, and third the central urethral area.",
+      "phase": "perineal_preparation_and_insertion",
+      "assessment_scope": "multi_event_sequence",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["povidone_iodine_swabs", "perineal_model_or_patient"],
+      "observable_evidence": [
+        "Three swabbing passes are distinguishable.",
+        "Each pass moves from top to bottom.",
+        "The visible order is far labium minus, near labium minus, then central urethral area."
+      ],
+      "scoring_rules": {
+        "2": "All three sites, top-to-bottom direction, and required order are directly supported.",
+        "1": "Cleansing is performed and direct evidence supports only part of the required sites, direction, or order.",
+        "0": "The cleansing is omitted, clearly incorrect overall, or violates the required sequence and technique substantially."
+      }
+    },
+    {
+      "id": 14,
+      "key": "remove_iodine_with_distilled_water_swabs",
+      "source_text_zh": "以蒸餾水棉棒，由上往下擦除優碘顏色\n(1)第一枝擦遠側小陰唇\n(2)第二枝擦近側小陰唇\n(3)第三枝擦中間尿道",
+      "description": "Using distilled-water swabs, wipe from top to bottom to remove the povidone-iodine color in this order: first the far labium minus, second the near labium minus, and third the central urethral area.",
+      "phase": "perineal_preparation_and_insertion",
+      "assessment_scope": "multi_event_sequence",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["distilled_water_swabs", "perineal_model_or_patient"],
+      "observable_evidence": [
+        "Three wiping passes are distinguishable after povidone-iodine cleansing.",
+        "Each pass moves from top to bottom.",
+        "The visible order is far labium minus, near labium minus, then central urethral area."
+      ],
+      "scoring_rules": {
+        "2": "All three sites, top-to-bottom direction, required order, and post-iodine timing are directly supported.",
+        "1": "Wiping is performed and direct evidence supports only part of the required sites, direction, or order.",
+        "0": "The action is omitted, clearly incorrect overall, or substantially violates the required sequence and technique."
+      }
+    },
+    {
+      "id": 15,
+      "key": "instruct_patient_to_exhale",
+      "source_text_zh": "插入導尿管時教導病人張口哈氣放鬆腹肌",
+      "description": "During catheter insertion, instruct the patient to open the mouth and exhale to relax the abdominal muscles.",
+      "phase": "perineal_preparation_and_insertion",
+      "assessment_scope": "synchronized_audio_video_event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["audio", "video"],
+      "required_objects": ["patient_or_manikin"],
+      "observable_evidence": [
+        "Synchronized video places the instruction during catheter insertion.",
+        "Audio or a verified transcript directly supports an instruction to open the mouth and exhale for abdominal relaxation."
+      ],
+      "scoring_rules": {
+        "2": "The required instruction and its timing during insertion are directly supported by synchronized evidence.",
+        "0": "The complete relevant interval is audible and visible, and the instruction is demonstrably omitted or incorrect."
+      },
+      "do_not_infer": "Visible mouth movement, candidate posture, or generic speech without intelligible content is insufficient for score 2."
+    },
+    {
+      "id": 16,
+      "key": "insert_urinary_catheter",
+      "source_text_zh": "插入尿管",
+      "description": "Insert the urinary catheter correctly.",
+      "phase": "perineal_preparation_and_insertion",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["urinary_catheter", "urethral_meatus"],
+      "observable_evidence": [
+        "The catheter is identifiable immediately before insertion.",
+        "The insertion action and target are sufficiently visible to distinguish correct insertion from nearby manipulation."
+      ],
+      "scoring_rules": {
+        "2": "Correct catheter insertion is directly supported.",
+        "0": "Insertion is demonstrably omitted or performed incorrectly."
+      }
+    },
+    {
+      "id": 17,
+      "key": "inflate_balloon_and_stabilize_catheter",
+      "source_text_zh": "空針打水球8-10cc (手一定要固定在尿道口避免尿管滑出)",
+      "description": "Inflate the catheter balloon with 8–10 mL while keeping a hand fixed at the urethral opening to prevent the catheter from slipping out.",
+      "phase": "perineal_preparation_and_insertion",
+      "assessment_scope": "multi_event",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video", "audio"],
+      "required_objects": ["10_ml_syringe", "urinary_catheter", "urethral_meatus"],
+      "observable_evidence": [
+        "The syringe is connected to the balloon inflation port after insertion.",
+        "The administered volume is directly visible or audibly confirmed as 8–10 mL.",
+        "A hand remains fixed at the urethral opening to prevent catheter slippage."
+      ],
+      "scoring_rules": {
+        "2": "Balloon inflation with 8–10 mL and fixed-hand stabilization are directly supported.",
+        "1": "Balloon inflation is attempted and direct evidence supports some, but not all, named requirements.",
+        "0": "The action is omitted, clearly incorrect overall, performed before insertion, or directly allows catheter slippage."
+      }
+    },
+    {
+      "id": 18,
+      "key": "connect_urinary_drainage_bag",
+      "source_text_zh": "接上蓄尿袋",
+      "description": "Connect the urinary drainage bag to the catheter correctly.",
+      "phase": "post_insertion_care",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["urinary_catheter", "urinary_drainage_bag", "connector"],
+      "observable_evidence": [
+        "The catheter and drainage-bag connector are identifiable.",
+        "A completed connection is visible after catheter insertion."
+      ],
+      "scoring_rules": {
+        "2": "The drainage bag is visibly connected correctly.",
+        "0": "The connection is demonstrably omitted or performed incorrectly."
+      }
+    },
+    {
+      "id": 19,
+      "key": "secure_catheter_to_thigh",
+      "source_text_zh": "導尿管固定於大腿",
+      "description": "Secure the urinary catheter to the patient's thigh.",
+      "phase": "post_insertion_care",
+      "assessment_scope": "event",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video"],
+      "required_objects": ["urinary_catheter", "thigh", "fixation_material"],
+      "observable_evidence": [
+        "Fixation material is applied to the catheter and thigh.",
+        "The final catheter position appears secured rather than merely placed on the thigh."
+      ],
+      "scoring_rules": {
+        "2": "The catheter is visibly secured correctly to the thigh.",
+        "1": "Fixation is attempted but is directly observed to be incomplete or only partially effective.",
+        "0": "The catheter is not fixed to the thigh or the fixation is clearly incorrect."
+      }
+    },
+    {
+      "id": 20,
+      "key": "perform_steps_logically",
+      "source_text_zh": "步驟操作具邏輯性",
+      "description": "Perform the procedure in a logical sequence.",
+      "phase": "global_workflow",
+      "assessment_scope": "full_timeline",
+      "allowed_scores": [0, 1, 2],
+      "max_score": 2,
+      "modalities": ["video", "audio"],
+      "required_objects": [],
+      "observable_evidence": [
+        "The full timeline preserves sterile and safety dependencies.",
+        "Preparation, cleansing, insertion, balloon inflation, connection, and fixation occur in a coherent progression.",
+        "Any restarts, reversals, or out-of-order actions are evaluated for their procedural consequence rather than mere timing."
+      ],
+      "scoring_rules": {
+        "2": "The overall sequence is logical, with no major disruption of sterile, safety, or procedural dependencies.",
+        "1": "The sequence is generally workable but contains directly observed minor deviations, hesitation, or limited disorder without a major safety consequence.",
+        "0": "The sequence is clearly poor or contains major ordering errors that disrupt sterile, safety, or procedural logic."
+      },
+      "source_labels_zh": {
+        "2": "很好",
+        "1": "普通",
+        "0": "稍差"
+      }
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SkilLens Bounding Box Annotator</title>
+    <link rel="stylesheet" href="/annotator.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">SL</div>
+        <div>
+          <div class="eyebrow">SkilLens</div>
+          <h1>OSCE Bounding Box Annotator</h1>
+        </div>
+      </div>
+      <div class="header-progress">
+        <div class="progress-copy">
+          <strong id="progressText">Loading project…</strong>
+          <span id="splitPolicy">Video-level split is locked</span>
+        </div>
+        <div class="progress-track" aria-label="Annotation progress">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="save-state" id="saveState" data-state="saved">
+          <span class="save-dot"></span><span id="saveStateText">Saved</span>
+        </span>
+        <a class="button secondary" href="/api/annotation-export" download>
+          Export YOLO
+        </a>
+      </div>
+    </header>
+
+    <main class="app-layout">
+      <aside class="left-panel panel">
+        <section class="panel-section project-section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Annotation project</span>
+              <h2 id="projectHeading">OSCE videos</h2>
+            </div>
+            <span class="count-pill" id="videoCount">3</span>
+          </div>
+          <div class="video-list" id="videoList"></div>
+        </section>
+
+        <section class="panel-section frame-section">
+          <div class="frame-toolbar">
+            <label class="search-field">
+              <span aria-hidden="true">⌕</span>
+              <input id="frameSearch" type="search" placeholder="Frame number" />
+            </label>
+            <select id="frameFilter" aria-label="Filter frames">
+              <option value="all">All frames</option>
+              <option value="todo">To do</option>
+              <option value="complete">Complete</option>
+              <option value="needs_review">Needs review</option>
+            </select>
+          </div>
+          <div class="frame-list" id="frameList" aria-label="Frames"></div>
+        </section>
+      </aside>
+
+      <section class="workspace-panel panel">
+        <div class="workspace-toolbar">
+          <div class="navigation-group">
+            <button class="icon-button" id="previousFrame" title="Previous frame (←)">←</button>
+            <div class="frame-identity">
+              <strong id="currentFrameTitle">Select a frame</strong>
+              <span id="currentFrameMeta">—</span>
+            </div>
+            <button class="icon-button" id="nextFrame" title="Next frame (→)">→</button>
+          </div>
+          <div class="tool-group">
+            <button class="tool-button" id="undoButton" title="Undo (Ctrl+Z)" disabled>Undo</button>
+            <button class="tool-button" id="redoButton" title="Redo (Ctrl+Y)" disabled>Redo</button>
+            <button class="tool-button" id="copyPrevious" title="Copy boxes from previous frame (C)">Copy previous</button>
+            <button class="tool-button accent" id="loadSuggestions" title="Load silver suggestions (S)">Load suggestions</button>
+          </div>
+          <div class="zoom-group">
+            <button class="tool-button" id="fitButton" title="Fit image to the available screen (F)">Fit</button>
+            <label>
+              <span class="sr-only">Zoom</span>
+              <input id="zoomRange" type="range" min="60" max="300" value="100" />
+            </label>
+            <span id="zoomValue">100%</span>
+          </div>
+        </div>
+
+        <div class="canvas-viewport" id="canvasViewport">
+          <div class="empty-canvas" id="emptyCanvas">
+            <div class="empty-icon">▱</div>
+            <strong>Choose a frame to start</strong>
+            <span>Draw a box around each visible clinical object.</span>
+          </div>
+          <div class="image-shell" id="imageShell" hidden>
+            <img id="frameImage" alt="OSCE frame for annotation" draggable="false" />
+            <div class="box-overlay" id="boxOverlay" aria-label="Bounding box canvas"></div>
+          </div>
+        </div>
+
+        <div class="canvas-help">
+          <span><kbd>Drag</kbd> draw a box</span>
+          <span><kbd>1–9</kbd> choose class</span>
+          <span><kbd>Delete</kbd> remove box</span>
+          <span><kbd>Space</kbd> confirm and next</span>
+          <span><kbd>← →</kbd> move between frames</span>
+        </div>
+      </section>
+
+      <aside class="right-panel panel">
+        <section class="panel-section">
+          <div class="section-heading compact">
+            <div>
+              <span class="eyebrow">Step 1</span>
+              <h2>Object classes</h2>
+            </div>
+            <button class="small-action" id="addClassButton" type="button">+ Add class</button>
+          </div>
+          <form class="class-creator" id="classForm" hidden>
+            <label>
+              <span>Class name</span>
+              <input id="className" maxlength="80" placeholder="e.g. Forceps" autocomplete="off" />
+            </label>
+            <label class="color-field">
+              <span>Color</span>
+              <input id="classColor" type="color" value="#007c91" />
+            </label>
+            <div class="class-form-actions">
+              <button class="button primary" type="submit">Add</button>
+              <button class="button secondary" id="cancelClass" type="button">Cancel</button>
+            </div>
+          </form>
+          <p class="class-empty" id="classEmpty" hidden>
+            No classes yet. Add the first object class before drawing boxes.
+          </p>
+          <div class="class-list" id="classList"></div>
+        </section>
+
+        <section class="panel-section object-section">
+          <div class="section-heading compact">
+            <div>
+              <span class="eyebrow">Step 2</span>
+              <h2>Check boxes</h2>
+            </div>
+            <span class="count-pill" id="objectCount">0</span>
+          </div>
+          <div class="object-list" id="objectList">
+            <p class="muted">No boxes on this frame.</p>
+          </div>
+        </section>
+
+        <section class="panel-section decision-section">
+          <div class="section-heading compact">
+            <div>
+              <span class="eyebrow">Step 3</span>
+              <h2>Confirm frame</h2>
+            </div>
+            <span class="status-badge unreviewed" id="frameStatus">To do</span>
+          </div>
+          <label class="note-field">
+            <span>Note <small>(optional)</small></span>
+            <textarea id="frameNote" rows="3" maxlength="2000" placeholder="Add a short note for this frame…"></textarea>
+          </label>
+          <div class="decision-actions">
+            <button class="button primary wide" id="confirmFrame">Confirm &amp; next <span>Space</span></button>
+            <div class="decision-row">
+              <button class="button secondary" id="markEmpty">No objects</button>
+              <button class="button warning" id="markReview">Needs review</button>
+            </div>
+            <button class="text-button" id="markDraft">Move back to To do</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+    <script src="/annotator.js" defer></script>
+  </body>
+</html>

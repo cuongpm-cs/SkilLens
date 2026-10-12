@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkilLens · OSCE Label Review</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/expert_review.css">
+</head>
+<body>
+  <div id="loading" class="loading-screen">
+    <div class="loading-mark">SL</div>
+    <p>Loading review images…</p>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Back to SkilLens assessment">
+      <span class="brand-mark">SL</span>
+      <span>
+        <strong>SkilLens</strong>
+        <small>Clinical data review</small>
+      </span>
+    </a>
+    <div class="page-title">
+      <strong>OSCE Label Review</strong>
+      <span>Female urinary catheterization</span>
+    </div>
+    <div class="top-actions">
+      <label class="reviewer-field">
+        <span>Reviewer</span>
+        <input id="reviewerName" type="text" maxlength="100" placeholder="Enter your name">
+      </label>
+      <button id="exportCsv" class="secondary-button" type="button">
+        <span aria-hidden="true">↓</span> Export CSV
+      </button>
+    </div>
+  </header>
+
+  <section class="progress-bar" aria-label="Review progress">
+    <div class="progress-copy">
+      <strong id="progressText">0 of 102 reviewed</strong>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-track"><i id="progressFill"></i></div>
+    <div class="progress-counts">
+      <span><i class="status-dot pass"></i><b id="passCount">0</b> Pass</span>
+      <span><i class="status-dot review"></i><b id="reviewCount">0</b> Needs review</span>
+      <span><i class="status-dot pending"></i><b id="pendingCount">102</b> Not reviewed</span>
+    </div>
+  </section>
+
+  <main class="review-layout">
+    <aside class="sample-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="eyebrow">Review set</span>
+          <h1>102 label samples</h1>
+        </div>
+        <span id="visibleCount" class="count-badge">102</span>
+      </div>
+
+      <label class="search-field">
+        <span aria-hidden="true">⌕</span>
+        <input id="sampleSearch" type="search" placeholder="Search file or video">
+      </label>
+      <div class="filter-grid">
+        <label>
+          <span>Object</span>
+          <select id="classFilter"><option value="all">All objects</option></select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select id="statusFilter">
+            <option value="all">All status</option>
+            <option value="unreviewed">Not reviewed</option>
+            <option value="pass">Pass</option>
+            <option value="needs_review">Needs review</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="classSummary" class="class-summary"></div>
+      <div id="sampleList" class="sample-list" aria-label="Review samples"></div>
+    </aside>
+
+    <section class="image-panel">
+      <div class="image-header">
+        <div class="object-title">
+          <span id="sampleNumber" class="sample-number">ER-001</span>
+          <div>
+            <span class="eyebrow">Target object</span>
+            <h2 id="targetName">Urinary catheter</h2>
+          </div>
+        </div>
+        <div class="image-tools">
+          <label class="toggle-field">
+            <input id="showOtherBoxes" type="checkbox" checked>
+            <span>Show other boxes</span>
+          </label>
+          <label class="zoom-field">
+            <span>Zoom</span>
+            <input id="zoomRange" type="range" min="100" max="220" value="100" step="10">
+            <output id="zoomValue">100%</output>
+          </label>
+          <button id="resetZoom" class="icon-button" type="button">Fit</button>
+        </div>
+      </div>
+
+      <div id="imageViewport" class="image-viewport">
+        <div id="imageStage" class="image-stage">
+          <img id="reviewImage" alt="Clinical OSCE frame for label review">
+          <svg id="boxOverlay" aria-label="Bounding box overlay"></svg>
+        </div>
+      </div>
+
+      <div class="image-footer">
+        <div class="box-key">
+          <span><i class="line-key target"></i>Target box</span>
+          <span><i class="line-key other"></i>Other labelled object</span>
+        </div>
+        <div class="file-meta">
+          <span id="splitBadge" class="split-badge">TRAIN</span>
+          <span id="videoName">video</span>
+          <span aria-hidden="true">·</span>
+          <span id="fileName">frame.jpg</span>
+        </div>
+      </div>
+    </section>
+
+    <aside class="decision-panel">
+      <div>
+        <span class="eyebrow">Expert check</span>
+        <h2>Is this label correct?</h2>
+        <p class="help-text">Check the object name and the box. The box should cover the full object and not include too much background.</p>
+      </div>
+
+      <div class="decision-buttons" role="group" aria-label="Review decision">
+        <button id="passButton" class="decision-button pass" type="button">
+          <span class="decision-icon">✓</span>
+          <span><strong>Pass</strong><small>The object and box are correct</small></span>
+        </button>
+        <button id="needsReviewButton" class="decision-button review" type="button">
+          <span class="decision-icon">!</span>
+          <span><strong>Needs review</strong><small>The object or box needs a change</small></span>
+        </button>
+      </div>
+
+      <label class="notes-field">
+        <span>Notes <small>Optional</small></span>
+        <textarea id="reviewNote" maxlength="2000" rows="7" placeholder="Describe what needs to change. For example: box is too wide, wrong object, or object is partly missing."></textarea>
+        <small id="noteStatus">Notes are saved with your answer.</small>
+      </label>
+
+      <div class="saved-state" id="savedState" data-status="unreviewed">
+        <i></i>
+        <span><strong>Not reviewed</strong><small>Choose an answer above</small></span>
+      </div>
+
+      <div class="decision-options">
+        <label><input id="autoAdvance" type="checkbox" checked> Move to the next image after saving</label>
+        <button id="clearDecision" type="button">Clear answer</button>
+      </div>
+
+      <div class="navigation-row">
+        <button id="previousSample" class="secondary-button" type="button">← Previous</button>
+        <button id="nextSample" class="primary-button" type="button">Next →</button>
+      </div>
+
+      <div class="keyboard-help">
+        <span><kbd>P</kbd> Pass</span>
+        <span><kbd>R</kbd> Needs review</span>
+        <span><kbd>←</kbd><kbd>→</kbd> Move</span>
+      </div>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/expert_review.js"></script>
+</body>
+</html>

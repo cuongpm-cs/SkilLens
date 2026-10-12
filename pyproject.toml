@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skillens"
+version = "1.0.0"
+description = "Knowledge-base-driven nursing skill video assessment framework"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+  "numpy>=1.26,<2.0",
+  "opencv-python>=4.9,<5.0",
+  "openai>=1.68,<3",
+  "python-dotenv>=1.0,<2"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+yolo = [
+  "mediapipe==0.10.21",
+  "tensorflow==2.18.1",
+  "torch>=2.2",
+  "torchvision>=0.17",
+  "ultralytics==8.3.202",
+  "lap>=0.5.12,<1"
+]
+modal = ["modal==1.5.2"]
+
+[project.scripts]
+skillens = "skillens.run:main"
+skillens-kb = "skillens.kb:main"
+skillens-eval = "skillens.evaluate:main"
+skillens-dashboard = "skillens.dashboard:main"
+skillens-annotator = "skillens.annotator:main"
+
+[tool.setuptools.packages.find]
+include = ["skillens*"]
+
+[tool.setuptools.package-data]
+skillens = ["web/*.html", "web/*.css", "web/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

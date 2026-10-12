@@ -1,0 +1,6 @@
+# Core API-only installation (Python 3.11). Optional YOLO/Modal extras are in pyproject.toml.
+numpy>=1.26,<2.0
+opencv-python>=4.9,<5.0
+openai>=1.68,<3
+python-dotenv>=1.0,<2
+
